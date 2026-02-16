@@ -16,8 +16,12 @@ public class Producto {
 
     // Métodos
 
+    public Producto() {
+        this.siguiente = null;
+    }
 
-    public Producto(String nombre, String codigo, byte stock, double precio, String categoria, LocalDate fechaDeVencimiento, String imagen) {
+    public Producto(String nombre, String codigo, byte stock, double precio, String categoria,
+                    LocalDate fechaDeVencimiento, String imagen) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.stock = stock;
@@ -30,9 +34,6 @@ public class Producto {
 
     // Getters y Setters
 
-    public Producto() {
-        this.siguiente = null;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -114,14 +115,14 @@ public class Producto {
     @Override
     public String toString() {
         return "Producto{" +
-                "codigo=" + codigo +
+                "codigo='" + codigo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", stock=" + stock +
                 ", precio=" + precio +
                 ", categoria='" + categoria + '\'' +
                 ", fechaDeVencimiento=" + fechaDeVencimiento +
                 ", imagen='" + imagen + '\'' +
-                ", siguiente=" + siguiente +
                 '}';
     }
+
 }
