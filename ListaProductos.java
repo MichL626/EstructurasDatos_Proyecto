@@ -29,50 +29,44 @@ public class ListaProductos {
 
     //Insertar Productos Inicio
 
-    //Con datos
-    public void insertarProductoInicio(String nombre, String codigo, byte stock, double precio,
-                                       String categoria, LocalDate fechaDeVencimiento, String imagen) {
+    public boolean insertarInicio(String codigo, String nombre, int cantidad, int stock, double precio,
+                                  String categoria, LocalDate fechaDeVencimiento) {
 
-        Producto productoInsertar = new Producto(nombre, codigo, stock, precio, categoria, fechaDeVencimiento, imagen);
-        productoInsertar.setSiguiente(primero);
-        setPrimero(productoInsertar);
-    }
+        if (buscar(codigo) != null) return false;
 
-    //Recibe Información
-    public void insertarInicio(Producto nuevo) {
-        if (nuevo == null) return;
+        Producto nuevo = new Producto();
+        nuevo.setCodigo(codigo);
+        nuevo.setNombre(nombre);
+        nuevo.setCantidad(cantidad);
+        nuevo.setStock(stock);
+        nuevo.setPrecio(precio);
+        nuevo.setCategoria(categoria);
+        nuevo.setFechaDeVencimiento(fechaDeVencimiento);
+
         nuevo.setSiguiente(primero);
         primero = nuevo;
-    }
-
-    //Insertar Final
-
-    //Con Datos
-    public void insertarProductoFinal(String nombre, String codigo, byte stock, double precio,
-                                      String categoria, LocalDate fechaDeVencimiento, String imagen) {
-
-        Producto productoInsertar = new Producto(nombre, codigo, stock, precio, categoria, fechaDeVencimiento, imagen);
-
-        if (estaVacia()) {
-            setPrimero(productoInsertar);
-            return;
-        }
-
-        Producto temp = primero;
-        while (temp.getSiguiente() != null) {
-            temp = temp.getSiguiente();
-        }
-        temp.setSiguiente(productoInsertar);
+        return true;
     }
 
 
-    //Recibe Información
-    public void insertarFinal(Producto nuevo) {
-        if (nuevo == null) return;
+    //Insertar productos Final
+    public boolean insertarFinal(String codigo, String nombre, int cantidad, int stock, double precio,
+                                 String categoria, LocalDate fechaDeVencimiento) {
+
+        if (buscar(codigo) != null) return false;
+
+        Producto nuevo = new Producto();
+        nuevo.setCodigo(codigo);
+        nuevo.setNombre(nombre);
+        nuevo.setCantidad(cantidad);
+        nuevo.setStock(stock);
+        nuevo.setPrecio(precio);
+        nuevo.setCategoria(categoria);
+        nuevo.setFechaDeVencimiento(fechaDeVencimiento);
 
         if (estaVacia()) {
             primero = nuevo;
-            return;
+            return true;
         }
 
         Producto aux = primero;
@@ -80,46 +74,54 @@ public class ListaProductos {
             aux = aux.getSiguiente();
         }
         aux.setSiguiente(nuevo);
+        return true;
     }
 
     //Buscar por código
     public Producto buscar(String codigo) {
-        if (estaVacia()) {
-            System.out.println("La lista está vacía.\n");
-            return null;
-        }
+        if (estaVacia()) return null;
 
         Producto temp = primero;
         while (temp != null && !Objects.equals(temp.getCodigo(), codigo)) {
             temp = temp.getSiguiente();
         }
-
-        if (temp == null) {
-            System.out.println("El código no se encontró en la lista.\n");
-        } else {
-            System.out.println("El código se encontró en la lista:\n");
-        }
-
         return temp;
+    }
+
+    //Modificar
+    public boolean modificar(String codigo, String nombre, int cantidad, int stock, double precio,
+                             String categoria, LocalDate fechaDeVencimiento) {
+
+        Producto p = buscar(codigo);
+        if (p == null) return false;
+
+        p.setNombre(nombre);
+        p.setCantidad(cantidad);
+        p.setStock(stock);
+        p.setPrecio(precio);
+        p.setCategoria(categoria);
+        p.setFechaDeVencimiento(fechaDeVencimiento);
+        return true;
+    }
+
+    public boolean agregarImagenAProducto(String codigo, String ruta) {
+        Producto p = buscar(codigo);
+        if (p == null) return false;
+        p.agregarImagen(ruta);
+        return true;
     }
 
     //Eliminar por Código
     public Producto eliminar(String codigo) {
-        if (estaVacia()) {
-            System.out.println("La lista está vacía.\n");
-            return null;
-        }
+        if (estaVacia()) return null;
 
-        // Caso 1: eliminar el primero
         if (Objects.equals(primero.getCodigo(), codigo)) {
             Producto eliminado = primero;
             primero = primero.getSiguiente();
-            eliminado.setSiguiente(null); // opcional: desconectar
-            System.out.println("El código se encontró en la lista:\n");
+            eliminado.setSiguiente(null);
             return eliminado;
         }
 
-        // Caso 2: eliminar en medio o final
         Producto anterior = primero;
         Producto actual = primero.getSiguiente();
 
@@ -128,14 +130,10 @@ public class ListaProductos {
             actual = actual.getSiguiente();
         }
 
-        if (actual == null) {
-            System.out.println("El código no se encontró en la lista.\n");
-            return null;
-        }
+        if (actual == null) return null;
 
         anterior.setSiguiente(actual.getSiguiente());
-        actual.setSiguiente(null); // opcional
-        System.out.println("El código se encontró en la lista:\n");
+        actual.setSiguiente(null);
         return actual;
     }
 
@@ -152,9 +150,35 @@ public class ListaProductos {
         }
     }
 
+    //Reporte Costos
 
+    public void reporteCostos() {
+        if (estaVacia()) {
+            System.out.println("La lista está vacía. No hay reporte.");
+            return;
+        }
 
+        System.out.println("========== REPORTE DE COSTOS ==========");
+        double totalAcumulado = 0;
 
+        Producto temp = primero;
+        while (temp != null) {
+            double subtotal = temp.getPrecio() * temp.getCantidad();
+            totalAcumulado += subtotal;
+
+            System.out.println("Código: " + temp.getCodigo());
+            System.out.println("Nombre: " + temp.getNombre());
+            System.out.println("Cantidad: " + temp.getCantidad());
+            System.out.println("Precio unitario: " + temp.getPrecio());
+            System.out.println("Subtotal (cantidad * precio): " + subtotal);
+            System.out.println("--------------------------------------");
+
+            temp = temp.getSiguiente();
+        }
+
+        System.out.println("TOTAL ACUMULADO DE LA LISTA: " + totalAcumulado);
+        System.out.println("======================================");
+    }
 
 }
 
