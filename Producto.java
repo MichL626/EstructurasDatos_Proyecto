@@ -28,9 +28,10 @@ public class Producto {
         this.siguiente = null;
     }
 
-    // Getters
+    // Getters y Setters
 
     public Producto() {
+        this.siguiente = null;
     }
 
     public int getCodigo() {
@@ -60,8 +61,6 @@ public class Producto {
     public double getPrecio() {
         return precio;
     }
-
-    // Setters
 
     public void setPrecio(double precio) {
         this.precio = precio;
@@ -101,14 +100,15 @@ public class Producto {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (!(o instanceof Producto)) return false;
         Producto producto = (Producto) o;
-        return codigo == producto.codigo && stock == producto.stock && Double.compare(precio, producto.precio) == 0 && Objects.equals(nombre, producto.nombre) && Objects.equals(categoria, producto.categoria) && Objects.equals(fechaDeVencimiento, producto.fechaDeVencimiento) && Objects.equals(imagen, producto.imagen) && Objects.equals(siguiente, producto.siguiente);
+        return codigo == producto.codigo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nombre, stock, precio, categoria, fechaDeVencimiento, imagen, siguiente);
+        return Objects.hash(codigo);
     }
 
     @Override
