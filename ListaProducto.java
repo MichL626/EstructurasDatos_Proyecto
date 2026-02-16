@@ -2,6 +2,7 @@ import java.time.LocalDate;
 
 public class ListaProducto {
 
+
     private NodoProducto primero;
 
     public ListaProducto() {
@@ -131,6 +132,7 @@ public class ListaProducto {
             temp = temp.getSiguiente();
         }
     }
+
 
 
 }
