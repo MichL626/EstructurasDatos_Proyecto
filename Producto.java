@@ -5,7 +5,7 @@ public class Producto {
 
     // Atributos
 
-    private int codigo;
+    private String codigo;
     private String nombre;
     private byte stock;
     private double precio;
@@ -17,7 +17,7 @@ public class Producto {
     // Métodos
 
 
-    public Producto(String nombre, int codigo, byte stock, double precio, String categoria, LocalDate fechaDeVencimiento, String imagen) {
+    public Producto(String nombre, String codigo, byte stock, double precio, String categoria, LocalDate fechaDeVencimiento, String imagen) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.stock = stock;
@@ -34,11 +34,11 @@ public class Producto {
         this.siguiente = null;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
