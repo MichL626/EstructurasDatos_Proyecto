@@ -72,7 +72,7 @@ public class ListaProducto {
         return primero == null;
     }
 
-    public void insertarNodoFinal(String nombre, String codigo, byte stock, double precio, String categoria, LocalDate fechaDeVencimiento, String imagen) {
+    public void insertarProductoFinal(String nombre, String codigo, byte stock, double precio, String categoria, LocalDate fechaDeVencimiento, String imagen) {
         Producto productoInsertar = new Producto(codigo, nombre, stock, precio, categoria, fechaDeVencimiento, imagen);
         if(estaVacia()) {
             setPrimero(productoInsertar);
