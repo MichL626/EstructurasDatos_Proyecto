@@ -7,7 +7,7 @@ public class Producto {
     // Atributos
 
     private String codigo;
-    private String nombre;
+    private String nombreProducto;
     private int cantidad;
     private int stock;
     private double precio;
@@ -25,10 +25,10 @@ public class Producto {
         this.siguiente = null;
     }
 
-    public Producto(String codigo, String nombre, int cantidad, int stock, double precio,
+    public Producto(String codigo, String nombreProducto, int cantidad, int stock, double precio,
                     String categoria, LocalDate fechaDeVencimiento, ArrayList<String> listaImagenes) {
         this.codigo = codigo;
-        this.nombre = nombre;
+        this.nombreProducto = nombreProducto;
         this.cantidad = cantidad;
         this.stock = stock;
         this.precio = precio;
@@ -43,8 +43,8 @@ public class Producto {
     public String getCodigo() { return codigo; }
     public void setCodigo(String codigo) { this.codigo = codigo; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() { return nombreProducto; }
+    public void setNombre(String nombre) { this.nombreProducto = nombre; }
 
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
@@ -94,14 +94,14 @@ public class Producto {
     @Override
     public String toString() {
         return "Producto{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
+                "código='" + codigo + '\'' +
+                ", nombre de producto='" + nombreProducto + '\'' +
                 ", cantidad=" + cantidad +
                 ", stock=" + stock +
                 ", precio=" + precio +
-                ", categoria='" + categoria + '\'' +
-                ", fechaDeVencimiento=" + fechaDeVencimiento +
-                ", imagenes=" + listaImagenes +
+                ", categoría='" + categoria + '\'' +
+                ", fecha de vencimiento=" + fechaDeVencimiento +
+                ", imágenes=" + listaImagenes +
                 '}';
     }
 
