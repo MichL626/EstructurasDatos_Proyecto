@@ -21,9 +21,9 @@ public class ListaProductos {
         return primero == null;
     }
 
-    // =========================
+
     // INSERTAR PRODUCTO NUEVO
-    // =========================
+
     public boolean insertarInicio(String codigo, String nombre, int cantidad, int stock, double precio,
                                   String categoria, LocalDate fechaDeVencimiento) {
 
