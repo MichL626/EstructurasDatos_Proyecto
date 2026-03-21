@@ -187,7 +187,7 @@ public class Main {
                 System.out.print(msg);
                 return Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("⚠ Ingrese un número entero válido.");
+                System.out.println("Ingrese un número entero válido.");
             }
         }
     }
@@ -196,7 +196,7 @@ public class Main {
         while (true) {
             int v = leerEntero(msg);
             if (v < 0) {
-                System.out.println("⚠ No se permiten valores negativos.");
+                System.out.println("No se permiten valores negativos.");
                 continue;
             }
             return v;
@@ -209,12 +209,12 @@ public class Main {
                 System.out.print(msg);
                 double v = Double.parseDouble(sc.nextLine().trim().replace(",", "."));
                 if (v < 0) {
-                    System.out.println("⚠ No se permiten valores negativos.");
+                    System.out.println("No se permiten valores negativos.");
                     continue;
                 }
                 return v;
             } catch (NumberFormatException e) {
-                System.out.println("⚠ Ingrese un número decimal válido.");
+                System.out.println("Ingrese un número decimal válido.");
             }
         }
     }

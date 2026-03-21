@@ -13,7 +13,6 @@ public class Producto {
     private double precio;
     private String categoria;
     private LocalDate fechaDeVencimiento;
-    private String imagen;
     private ArrayList<String> listaImagenes;
     private Producto siguiente;
 
