@@ -7,10 +7,9 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Tienda tienda = new Tienda("Tienda Virtual");
+        Tienda tienda = new Tienda("Tienda Virtual", "San Jose");
 
         cargarProductosIniciales(tienda);
-
         menu(tienda);
 
         sc.close();
@@ -30,6 +29,9 @@ public class Main {
                 case 4 -> mostrarColaClientes(tienda);
                 case 5 -> agregarProductoCarrito(tienda);
                 case 6 -> atenderSiguienteCliente(tienda);
+                case 7 -> agregarUbicacion(tienda);
+                case 8 -> agregarConexion(tienda);
+                case 9 -> mostrarMapa(tienda);
                 case 0 -> System.out.println("Saliendo del sistema...");
                 default -> System.out.println("Opción inválida. Intente nuevamente.");
             }
@@ -48,6 +50,9 @@ public class Main {
         System.out.println("4. Mostrar cola de clientes");
         System.out.println("5. Agregar producto al carrito de un cliente");
         System.out.println("6. Atender siguiente cliente");
+        System.out.println("7. Agregar ubicación al grafo");
+        System.out.println("8. Agregar conexión entre ubicaciones");
+        System.out.println("9. Mostrar grafo de ubicaciones");
         System.out.println("0. Salir");
         System.out.println("=========================================");
     }
@@ -84,13 +89,14 @@ public class Main {
         int id = leerEnteroNoNeg("ID del cliente: ");
         String nombre = leerTexto("Nombre del cliente: ");
         byte prioridad = leerPrioridad("Prioridad (1 = Básico, 2 = Afiliado, 3 = Premium): ");
+        String ubicacion = leerTexto("Ubicación del cliente: ");
 
-        boolean registrado = tienda.registrarCliente(id, nombre, prioridad);
+        boolean registrado = tienda.registrarCliente(id, nombre, prioridad, ubicacion);
 
         if (registrado) {
             System.out.println("Cliente registrado correctamente en la cola.");
         } else {
-            System.out.println("No se pudo registrar el cliente. Puede que el ID ya exista.");
+            System.out.println("No se pudo registrar el cliente.");
         }
     }
 
@@ -122,18 +128,46 @@ public class Main {
         Cliente clienteAtendido = tienda.atenderSiguienteCliente();
 
         if (clienteAtendido == null) {
-            System.out.println("No hay clientes en la cola.");
+            System.out.println("No fue posible atender al cliente.");
             return;
         }
 
         System.out.println("Cliente atendido:");
         System.out.println(clienteAtendido);
-
         System.out.println();
+
         tienda.imprimirFactura(clienteAtendido);
     }
 
-    // MÉTODOS DE APOYO
+    private static void agregarUbicacion(Tienda tienda) {
+        System.out.println("---- Agregar ubicación ----");
+        String ubicacion = leerTexto("Nombre de la ubicación: ");
+
+        if (tienda.agregarUbicacion(ubicacion)) {
+            System.out.println("Ubicación agregada correctamente.");
+        } else {
+            System.out.println("No se pudo agregar la ubicación.");
+        }
+    }
+
+    private static void agregarConexion(Tienda tienda) {
+        System.out.println("---- Agregar conexión ----");
+        String origen = leerTexto("Ubicación origen: ");
+        String destino = leerTexto("Ubicación destino: ");
+        int distancia = leerEnteroNoNeg("Distancia: ");
+
+        if (tienda.agregarConexion(origen, destino, distancia)) {
+            System.out.println("Conexión agregada correctamente.");
+        } else {
+            System.out.println("No se pudo agregar la conexión.");
+        }
+    }
+
+    private static void mostrarMapa(Tienda tienda) {
+        System.out.println("---- Grafo de ubicaciones ----");
+        tienda.getMapaUbicaciones().mostrarGrafo();
+    }
+
     private static String leerTexto(String mensaje) {
         System.out.print(mensaje);
         return sc.nextLine().trim();

@@ -3,12 +3,14 @@ public class Cliente {
     private int clienteID;
     private String nombreCliente;
     private byte prioridad;
+    private String ubicacion;
     private ListaProductos carrito;
 
-    public Cliente(int clienteID, String nombreCliente, byte prioridad) {
+    public Cliente(int clienteID, String nombreCliente, byte prioridad, String ubicacion) {
         this.clienteID = clienteID;
         this.nombreCliente = nombreCliente;
         setPrioridad(prioridad);
+        this.ubicacion = ubicacion;
         this.carrito = new ListaProductos();
     }
 
@@ -40,6 +42,14 @@ public class Cliente {
         }
     }
 
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     public ListaProductos getCarrito() {
         return carrito;
     }
@@ -60,6 +70,7 @@ public class Cliente {
                 ", nombreCliente='" + nombreCliente + '\'' +
                 ", prioridad=" + prioridad +
                 " (" + getTipoPrioridad() + ")" +
+                ", ubicacion='" + ubicacion + '\'' +
                 '}';
     }
 }
